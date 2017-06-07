@@ -1,4 +1,10 @@
 jassinaturas Client Library for Java
+
+[![Coverage Status](https://coveralls.io/repos/paniko0/jassinaturas/badge.svg?branch=master)](https://coveralls.io/r/paniko0/jassinaturas?branch=master)
+[![Build Status](https://travis-ci.org/paniko0/jassinaturas.svg?branch=master)](https://travis-ci.org/paniko0/jassinaturas)
+[![Build Status](https://drone.io/github.com/paniko0/jassinaturas/status.png)](https://drone.io/github.com/paniko0/jassinaturas/latest)
+[![wercker status](https://app.wercker.com/status/6de4cd22b6c24643861eb225115a3ac5/s/master "wercker status")](https://app.wercker.com/project/bykey/6de4cd22b6c24643861eb225115a3ac5)
+
 ============================================
 
 Client library to integrate Moip Assinaturas in Java.
@@ -6,14 +12,19 @@ Client library to integrate Moip Assinaturas in Java.
 Moip Assinaturas is a Moip's project that makes recurrence charges. It allows to create plans, customers, subscriptions and so on.
 
 API documentation is available at: http://moiplabs.github.io/assinaturas-docs/api.html
-
-[![Build Status](https://travis-ci.org/paniko0/jassinaturas.svg?branch=master)](https://travis-ci.org/paniko0/jassinaturas)
-[![Build Status](https://drone.io/github.com/paniko0/jassinaturas/status.png)](https://drone.io/github.com/paniko0/jassinaturas/latest)
-[![wercker status](https://app.wercker.com/status/6de4cd22b6c24643861eb225115a3ac5/s/master "wercker status")](https://app.wercker.com/project/bykey/6de4cd22b6c24643861eb225115a3ac5)
 =====================
 # Dependencies
 
 - Feign Client - 6.0.1
+
+# Maven dependency
+```java
+<dependency>
+  <groupId>com.github.paniko0</groupId>
+  <artifactId>jassinaturas</artifactId>
+  <version>1.1.0</version>
+</dependency>
+```
 
 =====================
 # Using
@@ -385,6 +396,47 @@ Retring an invoice:
 
 ```java
     Invoice invoice = assinaturas.invoices().retry(INVOICE_ID);
+```
+
+=====================
+### Coupons
+
+Creating coupon:
+
+```java
+    toBeCreated.withCode("COUPON_CODE")
+            .withName("COUPON_NAME")
+            .withDescription("COUPON_DESCRIPTION")
+            .withDiscount(new Discount()
+                        .withValue(1000)
+                        .withType(DiscountType.PERCENT))
+            .withStatus(CouponStatus.ACTIVE)
+            .withDuration(new Duration()
+                    .withType(DurationType.REPEATING)
+                    .withOccurrences(1))
+            .withExpirationDate(new ExpirationDate()
+                    .withDay(10)
+                    .withMonth(Month.OCTOBER)
+                    .withYear(2020))
+            .withMaxRedemptions(1000);
+```
+
+Then call:
+
+```java
+    Coupon coupon = assinaturas.coupons().create(toBeCreated);
+```
+
+To activate a coupon:
+
+```java
+    Coupon coupon = assinaturas.coupons().inactivate(couponCode);
+```
+
+To inactive a coupon:
+
+```java
+    Coupon coupon = assinaturas.coupons().inactivate(couponCode);
 ```
 
 ====================
