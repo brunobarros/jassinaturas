@@ -8,6 +8,9 @@ import java.util.List;
 import org.junit.Rule;
 import org.junit.Test;
 
+import co.freeside.betamax.Betamax;
+import co.freeside.betamax.MatchRule;
+import co.freeside.betamax.Recorder;
 import sdk.jassinaturas.Assinaturas;
 import sdk.jassinaturas.clients.attributes.Address;
 import sdk.jassinaturas.clients.attributes.Authentication;
@@ -26,9 +29,6 @@ import sdk.jassinaturas.clients.attributes.Subscription;
 import sdk.jassinaturas.clients.attributes.SubscriptionStatus;
 import sdk.jassinaturas.communicators.SandboxCommunicator;
 import sdk.jassinaturas.exceptions.ApiResponseErrorException;
-import co.freeside.betamax.Betamax;
-import co.freeside.betamax.MatchRule;
-import co.freeside.betamax.Recorder;
 
 public class SubscriptionClientTest {
 
@@ -278,5 +278,22 @@ public class SubscriptionClientTest {
         // There isn't any response from Moip Assinaturas when subscription is
         // updated
         // So, I didn't do any assert
+    }
+    
+    @Test
+    public void shouldCreateANewSubscriptionWithPaymentMethodBoleto() {
+        Subscription toBeCreated = new Subscription();
+        toBeCreated
+        		.withCode("subscription00001")
+        		.withAmount(100)
+                .withCustomer(new Customer().withCode("customer000000001"))
+                .withPlan(new Plan().withCode("plan001"))
+                .withPaymentMethod(Subscription.PAYMENT_METHOD_BOLETO);
+
+        Subscription created = assinaturas.subscriptions().create(toBeCreated);
+
+        assertEquals("Assinatura criada com sucesso", created.getMessage());
+
+        assertEquals(created.getPaymentMethod(), Subscription.PAYMENT_METHOD_BOLETO);
     }
 }

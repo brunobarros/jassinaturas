@@ -3,6 +3,10 @@ package sdk.jassinaturas.clients.attributes;
 import java.util.List;
 
 public class Subscription {
+    
+	public static final String PAYMENT_METHOD_BOLETO = "BOLETO";
+	public static final String PAYMENT_METHOD_CREDIT_CARD = "CREDIT_CARD";
+	
     private List<Alerts> alerts;
     private int amount;
     private String code;
@@ -17,6 +21,7 @@ public class Subscription {
     private SubscriptionStatus status;
     private List<Subscription> subscriptions;
     private Coupon coupon;
+	private String paymentMethod = PAYMENT_METHOD_CREDIT_CARD;
 
     public List<Alerts> getAlerts() {
         return alerts;
@@ -74,6 +79,10 @@ public class Subscription {
     public Coupon getCoupon() {
         return coupon;
     }
+    
+    public String getPaymentMethod() {
+		return paymentMethod;
+	}
 
     public Subscription withAmount(final int amount) {
         this.amount = amount;
@@ -104,6 +113,11 @@ public class Subscription {
         this.coupon = coupon;
         return this;
     }
+    
+    public Subscription withPaymentMethod(String paymentMethod) {
+    	this.paymentMethod = paymentMethod;
+    	return this;
+	}
 
     @Override
     public String toString() {
