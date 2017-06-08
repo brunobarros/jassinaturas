@@ -2,12 +2,15 @@ package sdk.jassinaturas.clients.attributes;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Subscription {
     
-	public static final String PAYMENT_METHOD_BOLETO = "BOLETO";
-	public static final String PAYMENT_METHOD_CREDIT_CARD = "CREDIT_CARD";
+    public static final String PAYMENT_METHOD_BOLETO = "BOLETO";
+    public static final String PAYMENT_METHOD_CREDIT_CARD = "CREDIT_CARD";
 	
     private List<Alerts> alerts;
+    private List<Errors> errors;
     private int amount;
     private String code;
     private CreationDate creationDate;
@@ -21,13 +24,23 @@ public class Subscription {
     private SubscriptionStatus status;
     private List<Subscription> subscriptions;
     private Coupon coupon;
-	private String paymentMethod = PAYMENT_METHOD_CREDIT_CARD;
+    private String paymentMethod = PAYMENT_METHOD_CREDIT_CARD;
+    @SerializedName("_links")
+    private Links links;
 
     public List<Alerts> getAlerts() {
         return alerts;
     }
 
-    public int getAmount() {
+    public List<Errors> getErrors() {
+		return errors;
+	}
+
+	public void setErrors(List<Errors> errors) {
+		this.errors = errors;
+	}
+
+	public int getAmount() {
         return amount;
     }
 
@@ -115,11 +128,19 @@ public class Subscription {
     }
     
     public Subscription withPaymentMethod(String paymentMethod) {
-    	this.paymentMethod = paymentMethod;
-    	return this;
-	}
+        this.paymentMethod = paymentMethod;
+        return this;
+    }
 
-    @Override
+    public Links getLinks() {
+        return links;
+    }
+
+    public void setLinks(Links _links) {
+        this.links = _links;
+    }
+
+	@Override
     public String toString() {
         return "Subscription [amount=" + amount + ", code=" + code + ", creationDate=" + creationDate + ", customer="
                 + customer + ", expirationDate=" + expirationDate + ", invoice=" + invoice + ", invoices=" + invoices
