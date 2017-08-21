@@ -280,19 +280,49 @@ public class SubscriptionClientTest {
         // So, I didn't do any assert
     }
     
+    @Betamax(tape = "CREATE_SUBSCRIPTION_BOLETO",
+            match = { MatchRule.body, MatchRule.method, MatchRule.uri })
     @Test
     public void shouldCreateANewSubscriptionWithPaymentMethodBoleto() {
         Subscription toBeCreated = new Subscription();
         toBeCreated
-        		.withCode("subscription00001")
-        		.withAmount(100)
-                .withCustomer(new Customer().withCode("customer000000001"))
+                .withCode("subscription_with_new_customer_00001")
+                .withAmount(100)
                 .withPlan(new Plan().withCode("plan001"))
+                .withCustomer(
+                        new Customer()
+                                .withCode("customer_created_with_subscription_0001")
+                                .withBirthdate(new Birthdate().withDay(13).withMonth(Month.OCTOBER).withYear(1989))
+                                .withCpf("12312312312")
+                                .withEmail("teste@teste.com")
+                                .withFullname("Danillo Souza")
+                                .withPhoneAreaCode("11")
+                                .withPhoneNumber("912341234")
+                                .withAddress(
+                                        new Address().withCity("S�o Paulo").withComplement("Apto")
+                                                .withCountry(Country.BRA).withDistrict("Centro").withNumber("1000")
+                                                .withState(State.SP).withStreet("9 de Julho").withZipcode("10012345")))
                 .withPaymentMethod(Subscription.PAYMENT_METHOD_BOLETO);
 
         Subscription created = assinaturas.subscriptions().create(toBeCreated);
 
         assertEquals("Assinatura criada com sucesso", created.getMessage());
+
+        assertEquals(created.getAmount(), 100);
+        assertEquals(created.getPlan().getName(), "Plano de Teste Atualizado");
+        assertEquals(created.getPlan().getCode(), "plan001");
+        assertEquals(created.getStatus(), SubscriptionStatus.ACTIVE);
+        assertEquals(created.getInvoice().getAmount(), 1100);
+        assertEquals(created.getInvoice().getId(), 12872);
+        assertEquals(created.getInvoice().getStatus().getDescription(), "Aguardando confirma��o");
+        assertEquals(created.getInvoice().getStatus().getCode(), 6);
+        assertEquals(1, created.getNextInvoiceDate().getDay());
+        assertEquals(Month.MAY, created.getNextInvoiceDate().getMonth());
+        assertEquals(2014, created.getNextInvoiceDate().getYear());
+        assertEquals(created.getCode(), "subscription_with_new_customer_00001");
+        assertEquals(created.getCustomer().getEmail(), "teste@teste.com");
+        assertEquals(created.getCustomer().getCode(), "customer_created_with_subscription_0001");
+        assertEquals(created.getCustomer().getFullname(), "Danillo Souza");
 
         assertEquals(created.getPaymentMethod(), Subscription.PAYMENT_METHOD_BOLETO);
     }
