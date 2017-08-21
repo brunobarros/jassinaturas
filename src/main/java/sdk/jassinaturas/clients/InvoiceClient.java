@@ -28,4 +28,9 @@ public class InvoiceClient {
         Invoice invoice = invoiceCommunicator.retry(id);
         return invoice;
     }
+
+    public Invoice newBoleto(final int id, String year, String month, String day) {
+    	Invoice invoice = invoiceCommunicator.newBoleto(id, year, month, day);
+    	return invoice;
+    }
 }

@@ -15,4 +15,7 @@ public interface InvoiceCommunicator {
 
     @RequestLine("POST /invoices/{id}/retry")
     Invoice retry(@Named("id") int id);
+    
+    @RequestLine("POST /invoices/{id}/boleto")
+    Invoice newBoleto(@Named("id") int id, String year, String month, String day);
 }
