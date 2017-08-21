@@ -2,8 +2,9 @@ package sdk.jassinaturas.communicators;
 
 import javax.inject.Named;
 
-import sdk.jassinaturas.clients.attributes.Invoice;
 import feign.RequestLine;
+import sdk.jassinaturas.clients.attributes.Invoice;
+import sdk.jassinaturas.clients.attributes.VencimentoBoleto;
 
 public interface InvoiceCommunicator {
 
@@ -17,5 +18,5 @@ public interface InvoiceCommunicator {
     Invoice retry(@Named("id") int id);
     
     @RequestLine("POST /invoices/{id}/boleto")
-    Invoice newBoleto(@Named("id") int id, String year, String month, String day);
+    Invoice newBoleto(@Named("id") int id, VencimentoBoleto vencimentoBoleto);
 }

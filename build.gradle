@@ -7,7 +7,7 @@ apply plugin: 'com.github.kt3k.coveralls'
 sourceCompatibility = 1.7
 group = "com.github.paniko0"
 archivesBaseName = "jassinaturas"
-version = '1.2.0'
+version = '1.2.2'
 
 repositories {
     mavenCentral()

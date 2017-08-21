@@ -1,5 +1,6 @@
 jassinaturas Client Library for Java
 
+[![](https://jitpack.io/v/brunobarros/jassinaturas.svg)](https://jitpack.io/#brunobarros/jassinaturas)
 [![Coverage Status](https://coveralls.io/repos/paniko0/jassinaturas/badge.svg?branch=master)](https://coveralls.io/r/paniko0/jassinaturas?branch=master)
 [![Build Status](https://travis-ci.org/paniko0/jassinaturas.svg?branch=master)](https://travis-ci.org/paniko0/jassinaturas)
 [![Build Status](https://drone.io/github.com/paniko0/jassinaturas/status.png)](https://drone.io/github.com/paniko0/jassinaturas/latest)
@@ -169,6 +170,20 @@ You can also create a subscription just informing an already created customer:
     toBeCreated
         .withCode("SUBSCRIPTION_CODE")
 		.withAmount(100)
+        .withCustomer(new Customer()
+			.withCode("YOUR_CUSTOMER_CODE"))
+        .withPlan(new Plan()
+			.withCode("YOUR_PLAN_CODE"));
+```
+
+You also can use boleto bancário:
+
+```java
+	Subscription toBeCreated = new Subscription();
+    toBeCreated
+        .withCode("SUBSCRIPTION_CODE")
+		.withAmount(100)
+		.withPaymentMethod("BOLETO")
         .withCustomer(new Customer()
 			.withCode("YOUR_CUSTOMER_CODE"))
         .withPlan(new Plan()
@@ -396,6 +411,12 @@ Retring an invoice:
 
 ```java
     Invoice invoice = assinaturas.invoices().retry(INVOICE_ID);
+```
+
+Gerar um novo boleto para uma fatura (invoice). Please see https://dev.moip.com.br/v1.5/reference#retentativa-de-pagamento-de-uma-fatura-por-boleto:
+
+```java
+    Invoice invoice = assinaturas.invoices().newBoleto(INVOICE_ID, vencimentoBoleto);
 ```
 
 =====================

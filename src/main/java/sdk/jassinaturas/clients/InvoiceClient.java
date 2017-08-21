@@ -4,6 +4,7 @@ import java.util.List;
 
 import sdk.jassinaturas.clients.attributes.Invoice;
 import sdk.jassinaturas.clients.attributes.Payment;
+import sdk.jassinaturas.clients.attributes.VencimentoBoleto;
 import sdk.jassinaturas.communicators.InvoiceCommunicator;
 
 public class InvoiceClient {
@@ -29,8 +30,8 @@ public class InvoiceClient {
         return invoice;
     }
 
-    public Invoice newBoleto(final int id, String year, String month, String day) {
-    	Invoice invoice = invoiceCommunicator.newBoleto(id, year, month, day);
+    public Invoice newBoleto(final int id, VencimentoBoleto vencimentoBoleto) {
+    	Invoice invoice = invoiceCommunicator.newBoleto(id, vencimentoBoleto);
     	return invoice;
     }
 }
