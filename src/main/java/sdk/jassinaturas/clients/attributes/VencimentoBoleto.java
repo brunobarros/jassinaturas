@@ -5,7 +5,14 @@ public class VencimentoBoleto {
     private String month;
     private int year;
 
-    public String getDay() {
+    public VencimentoBoleto(String day, String month, int year) {
+		super();
+		this.day = day;
+		this.month = month;
+		this.year = year;
+	}
+
+	public String getDay() {
         return day;
     }
 
