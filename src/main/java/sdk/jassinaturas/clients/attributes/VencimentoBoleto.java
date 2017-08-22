@@ -1,22 +1,22 @@
 package sdk.jassinaturas.clients.attributes;
 
 public class VencimentoBoleto {
-    private String day;
-    private String month;
+    private int day;
+    private int month;
     private int year;
 
-    public VencimentoBoleto(String day, String month, int year) {
+    public VencimentoBoleto(int day, int month, int year) {
 		super();
 		this.day = day;
 		this.month = month;
 		this.year = year;
 	}
 
-	public String getDay() {
+	public int getDay() {
         return day;
     }
 
-    public String getMonth() {
+    public int getMonth() {
         return month;
     }
 
