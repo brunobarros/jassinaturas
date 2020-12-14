@@ -57,7 +57,7 @@ public class Invoice {
         return subscriptionCode;
     }
 
-    public String getLinks() {
+    public Links getLinks() {
         return links;
     }
 
