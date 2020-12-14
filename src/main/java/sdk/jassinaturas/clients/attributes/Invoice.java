@@ -14,6 +14,8 @@ public class Invoice {
     private Plan plan;
     public InvoiceStatus status;
     private String subscriptionCode;
+    @SerializedName("_links")
+    private Links links;
 
     public int getAmount() {
         return amount;
@@ -53,6 +55,10 @@ public class Invoice {
 
     public String getSubscriptionCode() {
         return subscriptionCode;
+    }
+
+    public String getLinks() {
+        return links;
     }
 
     @Override
