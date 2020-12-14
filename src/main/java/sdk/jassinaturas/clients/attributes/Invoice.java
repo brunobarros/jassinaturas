@@ -2,6 +2,8 @@ package sdk.jassinaturas.clients.attributes;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Invoice {
 
     public int amount;
